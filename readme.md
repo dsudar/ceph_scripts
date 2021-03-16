@@ -11,8 +11,11 @@ A **ceph_remove** script that permanently removes the entire *box* from the Ceph
 **ceph_archive script**
 
 arguments:
+
 -v: verbose output to stdout
+
 -d: dry run mode
+
 -n: do not remove the original directory
 
 dir_names: list of directory names that will each be archived
@@ -21,7 +24,7 @@ pseudo-code:
 
 save current directory
 
-for each of the target directories named
+for each of the target directories in dir_names
 
 - cd to current directory
 - run ceph\_perms.py script which creates the RESTORE.sh script into target directory (to be run to restore permissions during ceph\_restore script)
@@ -36,13 +39,16 @@ for each of the target directories named
 **ceph_restore script**
 
 arguments:
+
 -v: verbose output to stdout
+
 -d: dry run mode
-dir\_names: list of directory names that will be restored relative to current directory
+
+dir_names: list of directory names that will be restored relative to current directory
 
 pseudo-code:
 
-for each target directory named
+for each target directory in dir_names
 - rclone copy target directory from GrayLabArchive bucket to current directory
 - report on size (how?)
 - verify complete restore by diff'ing .dir file with current tree (if .dir file available)
@@ -52,13 +58,16 @@ for each target directory named
 **ceph\_remove script**
 
 arguments:
+
 -v: verbose output to stdout
+
 -d: dry run mode
+
 dir_names: list of directory names that will be removed from the GrayLabArchive bucket
 
 pseudo-code:
 
-for each target directory named
+for each target directory in dir_names
 - report on size (how?) and ask for verification
 - rclone purge target directory from GrayLabArchive bucket
 
