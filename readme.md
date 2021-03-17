@@ -12,10 +12,10 @@ A **ceph_remove** script that permanently removes the entire *box* from the Ceph
 
 > arguments:
 > 
-> -v: verbose output to stdout 
-> -d: dry run mode 
-> -n: do not remove the original directory 
-> dir_names: list of directory names that will each be archived 
+> -v: verbose output to stdout  
+> -d: dry run mode  
+> -n: do not remove the original directory  
+> dir_names: list of directory names that will each be archived  
 
 pseudo-code:
 
@@ -37,9 +37,9 @@ pseudo-code:
 
 > arguments:
 > 
-> -v: verbose output to stdout 
-> -d: dry run mode 
-> dir_names: list of directory names that will be restored relative to current directory 
+> -v: verbose output to stdout  
+> -d: dry run mode  
+> dir_names: list of directory names that will be restored relative to current directory  
  
 pseudo-code:
 
@@ -54,9 +54,9 @@ pseudo-code:
 
 > arguments:
 > 
-> -v: verbose output to stdout 
-> -d: dry run mode 
-> dir_names: list of directory names that will be removed from the GrayLabArchive bucket 
+> -v: verbose output to stdout  
+> -d: dry run mode  
+> dir_names: list of directory names that will be removed from the GrayLabArchive bucket  
 
 pseudo-code:
 > for each target directory in dir_names
