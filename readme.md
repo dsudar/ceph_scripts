@@ -62,5 +62,5 @@ pseudo-code:
 
 rclone: <https://rclone.org>
 
-OHSU Ceph system: <http://accdoc.ohsu.edu/main/services/objectstorage/>  (accessible within OHSU only)
+OHSU Ceph system: <https://wiki.ohsu.edu/display/ACC/ACC+Object+Storage>  (accessible within OHSU only)
 
