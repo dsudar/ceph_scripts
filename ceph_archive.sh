@@ -9,7 +9,7 @@
 #        dir_names: one or more directory names that need to be archived
 #
 
-rmv = 1
+rmv=1
 
 while getopts "dvn" opt; do
     case $opt in
@@ -41,31 +41,29 @@ options=""
 if [[ $verbose = 1 ]]; then options=" -v "; fi
 if [[ $dry = 1 ]]; then options=" --dry-run "; fi
 
-cur_dir=`echo $PWD`
-
 for arg in "$@"
 do
 	echo "Processing directory: ${arg}"
-	# reset to starting directory
-	cd ${cur_dir}
+	# extract relative path from /home/groups/graylab_share
+	fullpath=`readlink -e ${arg}`
+	userpath=`echo ${fullpath} | sed 's|/home/groups/graylab_share/||g'`
+	cd /home/groups/graylab_share
 
 	# save ownership and modes of all files/dirs in the directory
-	python3 /usr/local/bin/ceph_perms.py ${arg} > ${arg}/RESTORE.sh
+	python3 /usr/local/bin/ceph_perms.py ${userpath} > ${userpath}/RESTORE.sh
 
 	# get contents to facilitate restoring
-	
+	tree ${userpath} > ${userpath}.dir
 
-	# extract relative path from /data/share
-	fullpath=`readlink -e ${arg}`
-	userpath=`echo ${fullpath} | sed 's|/data/share/||g'`
-	cd /data/share
+	# check whether top-level object already exists on destination
+
 
 	# copy to Ceph bucket
-	rclone ${options} copy ${userpath} s3://GrayLabArchive
+	rclone ${options} copy ${userpath} s3://GrayLabArchive/${userpath}/
 	echo "rclone ${options} copy ${userpath} s3://GrayLabArchive"
 
 	# check for clean copy
-	rclone check ${userpath} s3://GrayLabArchive
+	# rclone check ${userpath} s3://GrayLabArchive
 
 	# remove local copy unless no is specified or dry run
 	if [[ $rmv = 1 ]] && [[ $dry != 1 ]]
